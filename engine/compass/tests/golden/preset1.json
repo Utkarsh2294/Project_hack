@@ -1,0 +1,13 @@
+{
+  "dataset_version": "2026-10-25.1",
+  "verdict": "TEST-FIRST",
+  "grade": "hypothesis-grade",
+  "g1_prior": null,
+  "top_chain": "raw_flour",
+  "top_p_spec": null,
+  "top_protein_p50": 48.0,
+  "pea_landed_p50": 518.3,
+  "recommended_test": null,
+  "evpi": null,
+  "chains_total": 56
+}

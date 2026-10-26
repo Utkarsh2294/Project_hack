@@ -1,0 +1,344 @@
+{
+  "gates": [
+    {
+      "id": "G1",
+      "name": "Aflatoxins (B1 and total)",
+      "kind": "stop",
+      "applies_to": [
+        "*"
+      ],
+      "inputs": [
+        "afb1_ppb",
+        "total_aflatoxins_ppb"
+      ],
+      "rule": "B1 ≤ 10 µg/kg and total B1+B2+G1+G2 ≤ 15 µg/kg: PASS; any result above its threshold: FAIL; any missing result: TEST-FIRST.",
+      "required_tests": [
+        "afb1_elisa",
+        "afb1_hplc"
+      ],
+      "flip_condition": "Representative composite: B1 ≤ 10 µg/kg AND total aflatoxins ≤ 15 µg/kg",
+      "limits": {
+        "domestic": {
+          "value": 10,
+          "unit": "µg/kg",
+          "tag": "assumed",
+          "evidence_grade": "D",
+          "source_id": "user_project_limits",
+          "notes": "User-specified project acceptance threshold (24 Oct 2026); not independently verified as a regulatory limit.",
+          "verification_status": "assumption",
+          "basis": "as_received",
+          "source_location": "User message, 24 October 2026",
+          "conditions": {
+            "threshold_type": "internal_project_target",
+            "category": "Oilseed ingredient screening in this prototype; verify intended food-use applicability",
+            "effective_date": "2026-10-24",
+            "verified_legal_limit": false,
+            "analyte": "domestic"
+          }
+        },
+        "export_EU": {
+          "value": 10,
+          "unit": "µg/kg",
+          "tag": "assumed",
+          "evidence_grade": "D",
+          "source_id": "user_project_limits",
+          "notes": "User-specified project acceptance threshold (24 Oct 2026); not independently verified as a regulatory limit.",
+          "verification_status": "assumption",
+          "basis": "as_received",
+          "source_location": "User message, 24 October 2026",
+          "conditions": {
+            "threshold_type": "internal_project_target",
+            "category": "Oilseed ingredient screening in this prototype; verify intended food-use applicability",
+            "effective_date": "2026-10-24",
+            "verified_legal_limit": false,
+            "analyte": "export_EU"
+          }
+        },
+        "total_aflatoxins": {
+          "value": 15,
+          "unit": "µg/kg",
+          "tag": "assumed",
+          "evidence_grade": "D",
+          "source_id": "user_project_limits",
+          "notes": "User-specified project acceptance threshold (24 Oct 2026); not independently verified as a regulatory limit.",
+          "verification_status": "assumption",
+          "basis": "as_received",
+          "source_location": "User message, 24 October 2026",
+          "conditions": {
+            "threshold_type": "internal_project_target",
+            "category": "Oilseed ingredient screening in this prototype; verify intended food-use applicability",
+            "effective_date": "2026-10-24",
+            "verified_legal_limit": false,
+            "analyte": "total_aflatoxins"
+          }
+        }
+      },
+      "params": {
+        "pass_fraction_of_limit": {
+          "unit": "fraction",
+          "tag": "assumed",
+          "value": 0.5,
+          "evidence_grade": "D",
+          "notes": "rule threshold, source plan §12.1",
+          "verification_status": "assumption"
+        },
+        "prior_p_fail": {
+          "unit": "probability",
+          "tag": "published",
+          "value": 0.53,
+          "evidence_grade": "B",
+          "source_id": "murugeswari_2023",
+          "notes": "1 - 0.472 (47.2% of 118 samples <= 20 ppb). Feed-grade cake and a 20 ppb threshold, not the market limit; verify",
+          "verification_status": "review_reported_primary_not_checked"
+        },
+        "sorted_supply_odds_multiplier": {
+          "unit": "dimensionless",
+          "tag": "assumed",
+          "value": 0.2,
+          "evidence_grade": "D",
+          "notes": "source plan §12.1",
+          "verification_status": "assumption"
+        },
+        "composite_subsamples_min": {
+          "unit": "count",
+          "tag": "assumed",
+          "value": 10,
+          "evidence_grade": "D",
+          "notes": "lot sampling, source plan §12.1",
+          "verification_status": "assumption"
+        }
+      },
+      "notes": "Project thresholds apply to every material and both market scenarios. The historical 0.53 failure prior was measured at 20 ppb on feed-grade groundnut; it is not used to predict compliance at the new 10 µg/kg threshold."
+    },
+    {
+      "id": "G2",
+      "name": "Rancidity / lipase",
+      "kind": "stop",
+      "applies_to": [],
+      "inputs": [
+        "ffa_pct",
+        "hours_since_milling",
+        "stabilised"
+      ],
+      "rule": "ffa > fail -> FAIL; test_first < ffa <= fail -> TEST-FIRST; ffa <= test_first and (stabilised or hours <= window) -> PASS; unmeasured, unstabilised and hours > window -> FAIL; else TEST-FIRST.",
+      "required_tests": [
+        "ffa_titration",
+        "peroxide_value"
+      ],
+      "flip_condition": "FFA <= 3% on stabilised material",
+      "limits": {
+        "ffa_fail_pct": {
+          "unit": "%",
+          "tag": "published",
+          "value": 5,
+          "evidence_grade": "C",
+          "source_id": "dubey_2019",
+          "notes": "Dubey 2019 citing Tao 1993 (secondary)",
+          "verification_status": "review_reported_primary_not_checked"
+        }
+      },
+      "params": {
+        "ffa_test_first_pct": {
+          "unit": "%",
+          "tag": "assumed",
+          "value": 3,
+          "evidence_grade": "D",
+          "notes": "source plan §12.1",
+          "verification_status": "assumption"
+        },
+        "unstabilised_window_h": {
+          "unit": "h",
+          "tag": "published",
+          "value": 6,
+          "evidence_grade": "C",
+          "source_id": "dubey_2019",
+          "notes": "raw bran under normal milling; applicability to DORB to verify",
+          "verification_status": "review_reported_primary_not_checked"
+        }
+      }
+    },
+    {
+      "id": "G3",
+      "name": "Heavy metals",
+      "kind": "stop",
+      "applies_to": [
+        "*"
+      ],
+      "inputs": [
+        "pb_ppm",
+        "cd_ppm",
+        "arsenic_ppm",
+        "hg_ppm"
+      ],
+      "rule": "All four measured results ≤ their project thresholds: PASS; any exceedance: FAIL; otherwise TEST-FIRST.",
+      "required_tests": [
+        "icp_ms_metals"
+      ],
+      "flip_condition": "Lead ≤ 1.0; cadmium ≤ 0.1; total arsenic ≤ 0.5; mercury ≤ 0.1 mg/kg",
+      "limits": {
+        "lead": {
+          "value": 1,
+          "unit": "mg/kg",
+          "tag": "assumed",
+          "evidence_grade": "D",
+          "source_id": "user_project_limits",
+          "notes": "User-specified project acceptance threshold (24 Oct 2026); not independently verified as a regulatory limit.",
+          "verification_status": "assumption",
+          "basis": "as_received",
+          "source_location": "User message, 24 October 2026",
+          "conditions": {
+            "threshold_type": "internal_project_target",
+            "category": "Oilseed ingredient screening in this prototype; verify intended food-use applicability",
+            "effective_date": "2026-10-24",
+            "verified_legal_limit": false,
+            "analyte": "lead"
+          }
+        },
+        "cadmium": {
+          "value": 0.1,
+          "unit": "mg/kg",
+          "tag": "assumed",
+          "evidence_grade": "D",
+          "source_id": "user_project_limits",
+          "notes": "User-specified project acceptance threshold (24 Oct 2026); not independently verified as a regulatory limit.",
+          "verification_status": "assumption",
+          "basis": "as_received",
+          "source_location": "User message, 24 October 2026",
+          "conditions": {
+            "threshold_type": "internal_project_target",
+            "category": "Oilseed ingredient screening in this prototype; verify intended food-use applicability",
+            "effective_date": "2026-10-24",
+            "verified_legal_limit": false,
+            "analyte": "cadmium"
+          }
+        },
+        "arsenic": {
+          "value": 0.5,
+          "unit": "mg/kg",
+          "tag": "assumed",
+          "evidence_grade": "D",
+          "source_id": "user_project_limits",
+          "notes": "User-specified project acceptance threshold (24 Oct 2026); not independently verified as a regulatory limit.",
+          "verification_status": "assumption",
+          "basis": "as_received",
+          "source_location": "User message, 24 October 2026",
+          "conditions": {
+            "threshold_type": "internal_project_target",
+            "category": "Oilseed ingredient screening in this prototype; verify intended food-use applicability",
+            "effective_date": "2026-10-24",
+            "verified_legal_limit": false,
+            "analyte": "arsenic"
+          }
+        },
+        "mercury": {
+          "value": 0.1,
+          "unit": "mg/kg",
+          "tag": "assumed",
+          "evidence_grade": "D",
+          "source_id": "user_project_limits",
+          "notes": "User-specified project acceptance threshold (24 Oct 2026); not independently verified as a regulatory limit.",
+          "verification_status": "assumption",
+          "basis": "as_received",
+          "source_location": "User message, 24 October 2026",
+          "conditions": {
+            "threshold_type": "internal_project_target",
+            "category": "Oilseed ingredient screening in this prototype; verify intended food-use applicability",
+            "effective_date": "2026-10-24",
+            "verified_legal_limit": false,
+            "analyte": "mercury"
+          }
+        }
+      },
+      "notes": "Arsenic is treated as total arsenic; mg/kg is inferred from the neighbouring metal limits supplied by the user. An inorganic-arsenic-only assay does not establish total-arsenic compliance."
+    },
+    {
+      "id": "G4",
+      "name": "Solvent residue",
+      "kind": "stop",
+      "applies_to": [
+        "*"
+      ],
+      "inputs": [
+        "hexane_ppm",
+        "solvent_extracted",
+        "oil_route",
+        "hexane_cert"
+      ],
+      "rule": "Measured hexane ≤ 10 mg/kg: PASS; > 10: FAIL. Without a measurement, explicit non-solvent processing passes this gate; solvent or unknown processing needs a quantitative residue result.",
+      "required_tests": [
+        "hexane_residue_gchs"
+      ],
+      "flip_condition": "Hexane residue ≤ 10 mg/kg (10 ppm), or confirmed non-solvent processing",
+      "limits": {
+        "hexane_residue": {
+          "value": 10,
+          "unit": "mg/kg",
+          "tag": "assumed",
+          "evidence_grade": "D",
+          "source_id": "user_project_limits",
+          "notes": "User-specified project acceptance threshold (24 Oct 2026); not independently verified as a regulatory limit.",
+          "verification_status": "assumption",
+          "basis": "as_received",
+          "source_location": "User message, 24 October 2026",
+          "conditions": {
+            "threshold_type": "internal_project_target",
+            "category": "Oilseed ingredient screening in this prototype; verify intended food-use applicability",
+            "effective_date": "2026-10-24",
+            "verified_legal_limit": false,
+            "analyte": "hexane_residue"
+          }
+        }
+      }
+    },
+    {
+      "id": "G5",
+      "name": "Food-grade provenance",
+      "kind": "stop",
+      "applies_to": [
+        "*"
+      ],
+      "inputs": [
+        "food_grade_supply",
+        "storage"
+      ],
+      "rule": "Require food-grade supply, hygienic storage, lot ID, supplier and traceability documentation. A microbiology panel alone does not prove provenance.",
+      "required_tests": [
+        "micro_panel"
+      ],
+      "flip_condition": "documented lot, supplier, food-grade handling and storage records; microbiological verification as required"
+    },
+    {
+      "id": "G6",
+      "name": "Allergen",
+      "kind": "flag",
+      "applies_to": [
+        "groundnut_cake",
+        "almond_cake",
+        "soybean_cake"
+      ],
+      "inputs": [
+        "application",
+        "claims"
+      ],
+      "rule": "Always FLAG: major allergen; must be labelled; cannot support an allergen-free claim. Claim 'allergen_free' -> FAIL for that claim.",
+      "required_tests": [],
+      "allergens": {
+        "groundnut_cake": "peanut",
+        "almond_cake": "tree nut (almond)"
+      }
+    },
+    {
+      "id": "G7",
+      "name": "Regulatory",
+      "kind": "stop",
+      "applies_to": [
+        "*"
+      ],
+      "inputs": [
+        "regulatory_review_reference"
+      ],
+      "rule": "Unknown category / intended-use regulatory review -> TEST-FIRST. A documented qualified review reference is required for pilot readiness; not a claim of approval.",
+      "required_tests": []
+    }
+  ]
+}
